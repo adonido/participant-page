@@ -2,7 +2,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 export interface Participant {
   id?: number;
   name: string;
@@ -11,6 +10,8 @@ export interface Participant {
   email: string;
   phone: string;
   status: string;
+  logo?: string | null;
+logoContentType?: string | null;
 }
 
 @Injectable({
@@ -48,4 +49,16 @@ export class ParticipantService {
       responseType: 'text'
     });
   }
+  // POST: Upload participant logo
+uploadLogo(id: number, file: File): Observable<Participant> {
+
+  const formData = new FormData();
+
+  formData.append('file', file);
+
+  return this.http.post<Participant>(
+    `${this.apiUrl}/${id}/logo`,
+    formData
+  );
+}
 }

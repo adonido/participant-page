@@ -113,6 +113,35 @@
         </small>
       </div>
 
+      <!-- Participant Logo -->
+      <div class="mb-4">
+
+        <label class="form-label">Participant Logo</label>
+
+        <input
+          type="file"
+          class="form-control"
+          accept="image/png, image/jpeg"
+          (change)="onLogoSelected($event)">
+
+        <small class="text-muted">
+          Accepted formats: PNG and JPG. Maximum size: 2 MB.
+        </small>
+
+        <!-- Logo Preview -->
+        <div *ngIf="logoPreview" class="mt-3">
+
+          <p class="fw-bold">Logo Preview:</p>
+
+          <img
+            [src]="logoPreview"
+            alt="Participant Logo Preview"
+            style="width: 120px; height: 120px; object-fit: contain; border: 1px solid #ddd; padding: 5px;">
+
+        </div>
+
+      </div>
+
       <!-- Buttons -->
       <button
         type="submit"

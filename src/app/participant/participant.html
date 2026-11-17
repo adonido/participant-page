@@ -49,6 +49,7 @@
       <thead>
         <tr>
           <th>#</th>
+          <th>Logo</th>
           <th>Name</th>
           <th>BIC</th>
           <th>Short Name</th>
@@ -64,8 +65,23 @@
         @for (participant of participants; track $index) {
 
           <tr>
-            <td>{{ $index + 1 }}</td>
-            <td>{{ participant.name }}</td>
+           <td>{{ $index + 1 }}</td>
+
+
+<td>
+  @if (participant.logo) {
+    <img
+      [src]="'data:' + participant.logoContentType + ';base64,' + participant.logo"
+      alt="Participant Logo"
+      width="50"
+      height="50"
+      style="object-fit: contain;">
+  } @else {
+    <span class="text-muted">No logo</span>
+  }
+</td>
+
+<td>{{ participant.name }}</td>
             <td>{{ participant.bic }}</td>
             <td>{{ participant.shortName }}</td>
             <td>{{ participant.email }}</td>
@@ -97,7 +113,7 @@
 
         @empty {
           <tr>
-            <td colspan="8" class="text-center text-muted">
+            <td colspan="9" class="text-center text-muted">
               No participants registered yet.
             </td>
           </tr>
