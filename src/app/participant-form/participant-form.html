@@ -1,0 +1,134 @@
+
+<div class="container mt-5">
+
+  <div class="card shadow p-4">
+
+    <h2 class="mb-4">Register New Participant</h2>
+
+    <form [formGroup]="participantForm"
+          (ngSubmit)="saveParticipant()">
+
+      <!-- Full Name -->
+      <div class="mb-3">
+        <label class="form-label">Full Name</label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder="Enter full name"
+          [class.is-invalid]="participantForm.get('name')?.invalid && participantForm.get('name')?.touched">
+
+        <small class="error-message"
+          [hidden]="!(participantForm.get('name')?.hasError('required') && participantForm.get('name')?.touched)">
+          Full name is required.
+        </small>
+      </div>
+
+      <!-- BIC -->
+      <div class="mb-3">
+        <label class="form-label">BIC</label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="bic"
+          placeholder="Enter BIC"
+          [class.is-invalid]="participantForm.get('bic')?.invalid && participantForm.get('bic')?.touched">
+
+        <small class="error-message"
+          [hidden]="!participantForm.get('bic')?.touched || !participantForm.get('bic')?.invalid">
+          BIC is required and must contain 8–11 letters or numbers.
+        </small>
+      </div>
+
+      <!-- Short Name -->
+      <div class="mb-3">
+        <label class="form-label">Short Name</label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="shortName"
+          placeholder="Enter short name"
+          [class.is-invalid]="participantForm.get('shortName')?.invalid && participantForm.get('shortName')?.touched">
+
+        <small class="error-message"
+          [hidden]="!(participantForm.get('shortName')?.invalid && participantForm.get('shortName')?.touched)">
+          Short name is required.
+        </small>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Enter email"
+          [class.is-invalid]="participantForm.get('email')?.invalid && participantForm.get('email')?.touched">
+
+        <small class="error-message"
+          [hidden]="!participantForm.get('email')?.touched || !participantForm.get('email')?.invalid">
+          Please enter a valid email address.
+        </small>
+      </div>
+
+      <!-- Phone -->
+      <div class="mb-3">
+        <label class="form-label">Phone</label>
+
+        <input
+          type="tel"
+          class="form-control"
+          formControlName="phone"
+          placeholder="Enter phone number"
+          [class.is-invalid]="participantForm.get('phone')?.invalid && participantForm.get('phone')?.touched">
+
+        <small class="error-message"
+          [hidden]="!(participantForm.get('phone')?.invalid && participantForm.get('phone')?.touched)">
+          Phone number is required.
+        </small>
+      </div>
+
+      <!-- Status -->
+      <div class="mb-4">
+        <label class="form-label">Status</label>
+
+        <select
+          class="form-select"
+          formControlName="status"
+          [class.is-invalid]="participantForm.get('status')?.invalid && participantForm.get('status')?.touched">
+
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+
+        </select>
+
+        <small class="error-message"
+          [hidden]="!(participantForm.get('status')?.invalid && participantForm.get('status')?.touched)">
+          Status is required.
+        </small>
+      </div>
+
+      <!-- Buttons -->
+      <button
+        type="submit"
+        class="btn btn-primary me-2">
+        Save
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="cancel()">
+        Cancel
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

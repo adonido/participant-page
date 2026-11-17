@@ -1,0 +1,15 @@
+
+@if (notification$ | async; as notification) {
+
+  <div
+    class="toast-message"
+    [class.success]="notification.type === 'success'"
+    [class.error]="notification.type === 'error'">
+
+    <span>{{ notification.message }}</span>
+
+    <button (click)="close()">×</button>
+
+  </div>
+
+}
