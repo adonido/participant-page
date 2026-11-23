@@ -7,8 +7,20 @@ import { NotificationService } from '../shared/notification';
 export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
 
   const notificationService = inject(NotificationService);
+  // Get the access token from localStorage
+  const accessToken = localStorage.getItem('access_token');
+  const tokenType = localStorage.getItem('token_type') || 'Bearer';
 
-  return next(req).pipe(
+  // Attach the token to authenticated API requests
+  const authReq = accessToken && !req.url.includes('/auth/login')
+    ? req.clone({
+        setHeaders: {
+          Authorization: `${tokenType} ${accessToken}`
+        }
+      })
+    : req;
+
+  return next(authReq).pipe(
 
     catchError((error: HttpErrorResponse) => {
 

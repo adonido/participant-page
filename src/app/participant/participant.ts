@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ParticipantService, Participant } from '../services/participant';
 import { LoadingSpinner } from '../shared/loading-spinner/loading-spinner';
@@ -14,15 +14,15 @@ imports: [RouterLink, LoadingSpinner],
 export class Participants implements OnInit {
 
   participants: Participant[] = [];
-isLoading = false;
+isLoading = signal<boolean>(true);
 
-// Delete confirmation modal
 showDeleteModal = false;
 selectedParticipant: Participant | null = null;
  constructor(
   private participantService: ParticipantService,
   private router: Router,
-  private notificationService: NotificationService
+  private notificationService: NotificationService,
+  private cdr: ChangeDetectorRef
 ) {}
 
   ngOnInit() {
@@ -31,18 +31,17 @@ selectedParticipant: Participant | null = null;
 
   loadParticipants() {
 
-  this.isLoading = true;
 
   this.participantService.getParticipants().subscribe({
 
     next: (data) => {
       this.participants = data;
-      this.isLoading = false;
+      this.isLoading.set(false);
     },
 
     error: (error) => {
       console.error('Error fetching participants:', error);
-      this.isLoading = false;
+      this.isLoading.set(false);
     }
 
   });
@@ -68,16 +67,22 @@ confirmDelete() {
 
   this.participantService.deleteParticipant(participantId).subscribe({
 
-    next: () => {
-      this.participants = this.participants.filter(
-        p => p.id !== participantId
-      );
+    next: (response) => {
+  console.log('Delete response:', response);
+  console.log('Deleted participant ID:', participantId);
+
+  this.participants = this.participants.filter(
+    p => p.id !== participantId
+  );
+
+  console.log('Updated participants:', this.participants);
 
       this.notificationService.showSuccess(
         'Participant deleted successfully!'
       );
 
       this.closeDeleteModal();
+      this.cdr.detectChanges();
     },
 
     error: (error) => {
@@ -95,6 +100,15 @@ confirmDelete() {
 closeDeleteModal() {
   this.showDeleteModal = false;
   this.selectedParticipant = null;
+}
+editParticipant(participant: Participant) {
+
+  if (participant.id === undefined) {
+    return;
+  }
+
+  this.router.navigate(['/participants/edit', participant.id]);
+
 }
   logout() {
     this.router.navigate(['/login']);

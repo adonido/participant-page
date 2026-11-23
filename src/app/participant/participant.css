@@ -6,9 +6,9 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #f3f6fb;
+  background: #000000;
   font-family: Arial, sans-serif;
-  color: #26364d;
+  color: #0f0f23;
 }
 
 /* Navigation */
@@ -17,13 +17,13 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 20px 35px;
-  background: #172b4d;
-  color: white;
+  background: #7c96e3;
+  color: rgba(40, 43, 17, 0.429);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 nav a {
-  color: white;
+  color: rgb(4, 5, 4);
   font-size: 22px;
   font-weight: bold;
   text-decoration: none;
@@ -40,7 +40,7 @@ nav button {
 }
 
 nav button:hover {
-  background: #b52a37;
+  background: #503034;
 }
 
 /* Search */
@@ -70,8 +70,8 @@ nav button:hover {
   display: inline-block;
   margin: 0 35px 20px;
   padding: 12px 20px;
-  background: #2469b5;
-  color: white;
+  background: #6947d8;
+  color: rgb(240, 232, 232);
   border: none;
   border-radius: 7px;
   font-weight: bold;
@@ -80,7 +80,7 @@ nav button:hover {
 }
 
 .btn-primary:hover {
-  background: #174f91;
+  background: #154c8a;
 }
 
 /* Table container */
@@ -89,7 +89,7 @@ nav button:hover {
   max-width: 100%;
   margin: 0 35px 35px;
   overflow-x: auto;
-  background: white;
+  background: rgb(99, 101, 96);
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
 }
@@ -98,12 +98,12 @@ nav button:hover {
 .table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
+  background: rgb(126, 122, 122);
   min-width: 750px;
 }
 
 .table th {
-  background: #eaf0f8;
+  background: #9aa2ad;
   color: #172b4d;
   padding: 16px 12px;
   text-align: left;
@@ -136,12 +136,12 @@ nav button:hover {
 }
 
 .status.active {
-  background: #d1fae5;
-  color: #047857;
+  background: #448f68;
+  color: #3a806c;
 }
 
 .status.inactive {
-  background: #fee2e2;
+  background: #6f6161;
   color: #b91c1c;
 }
 
@@ -206,4 +206,56 @@ nav button:hover {
 
 .delete-modal p {
   margin-bottom: 25px;
+}
+/* Calm page background */
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #f5f5f2;
+}
+
+/* Edit button */
+.btn-edit {
+  background-color: #2563eb;
+  color: white;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  padding: 6px 15px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.btn-edit:hover {
+  background-color: #1d4ed8;
+  color: white;
+}
+
+/* Delete button */
+.btn-delete {
+  background-color: #dc5a5a;
+  color: white;
+  border: 1px solid #dc5a5a;
+  border-radius: 6px;
+  padding: 6px 15px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #c43d3d;
+  color: white;
+}
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.participant-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+  padding: 2px;
+  background-color: white;
 }

@@ -8,7 +8,6 @@
     <form [formGroup]="participantForm"
           (ngSubmit)="saveParticipant()">
 
-      <!-- Full Name -->
       <div class="mb-3">
         <label class="form-label">Full Name</label>
 
@@ -25,7 +24,6 @@
         </small>
       </div>
 
-      <!-- BIC -->
       <div class="mb-3">
         <label class="form-label">BIC</label>
 
@@ -41,8 +39,6 @@
           BIC is required and must contain 8–11 letters or numbers.
         </small>
       </div>
-
-      <!-- Short Name -->
       <div class="mb-3">
         <label class="form-label">Short Name</label>
 
@@ -59,7 +55,6 @@
         </small>
       </div>
 
-      <!-- Email -->
       <div class="mb-3">
         <label class="form-label">Email</label>
 
@@ -76,24 +71,24 @@
         </small>
       </div>
 
-      <!-- Phone -->
+    
       <div class="mb-3">
         <label class="form-label">Phone</label>
 
-        <input
-          type="tel"
-          class="form-control"
-          formControlName="phone"
-          placeholder="Enter phone number"
-          [class.is-invalid]="participantForm.get('phone')?.invalid && participantForm.get('phone')?.touched">
-
+     <input
+  type="text"
+  class="form-control"
+  formControlName="phoneNumber"
+  placeholder="Enter phone number"
+  inputmode="numeric"
+  (input)="onPhoneInput($event)"
+  [class.is-invalid]="participantForm.get('phoneNumber')?.invalid && participantForm.get('phoneNumber')?.touched">
         <small class="error-message"
-          [hidden]="!(participantForm.get('phone')?.invalid && participantForm.get('phone')?.touched)">
+          [hidden]="!(participantForm.get('phoneNumber')?.invalid && participantForm.get('phoneNumber')?.touched)">
           Phone number is required.
         </small>
       </div>
 
-      <!-- Status -->
       <div class="mb-4">
         <label class="form-label">Status</label>
 
@@ -113,7 +108,6 @@
         </small>
       </div>
 
-      <!-- Participant Logo -->
       <div class="mb-4">
 
         <label class="form-label">Participant Logo</label>
@@ -127,8 +121,6 @@
         <small class="text-muted">
           Accepted formats: PNG and JPG. Maximum size: 2 MB.
         </small>
-
-        <!-- Logo Preview -->
         <div *ngIf="logoPreview" class="mt-3">
 
           <p class="fw-bold">Logo Preview:</p>
@@ -142,7 +134,6 @@
 
       </div>
 
-      <!-- Buttons -->
       <button
         type="submit"
         class="btn btn-primary me-2">

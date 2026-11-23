@@ -2,10 +2,10 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #f3f6fb;
+  background: #f5f6f7;
   font-family: Arial, sans-serif;
   padding: 40px 20px;
-  color: #26364d;
+  color: #7d8187;
 }
 
 /* Form container */
@@ -16,7 +16,7 @@
 
 /* Form card */
 .card {
-  background: white;
+  background: rgb(119, 145, 161);
   border: none;
   border-radius: 12px;
   padding: 35px !important;
@@ -47,7 +47,7 @@ h2 {
 .form-select {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #d5dce5;
+  border: 1px solid #c8ccd2;
   border-radius: 7px;
   font-size: 14px;
   color: #26364d;
@@ -83,7 +83,7 @@ h2 {
 }
 
 .btn-primary {
-  background: #2469b5;
+  background: #3e076f;
   color: white;
 }
 
@@ -98,7 +98,7 @@ h2 {
 }
 
 .btn-secondary {
-  background: #e5eaf1;
+  background: #2e8b9d;
   color: #34445c;
 }
 
@@ -139,10 +139,13 @@ h2 {
   font-size: 12px;
   margin-top: 6px;
 }
+.error-message[hidden] {
+  display: none;
+}
 
 /* Disabled Save button */
 .btn-primary:disabled {
-  background: #9bb6d5;
+  background: #4781bc;
   cursor: not-allowed;
   opacity: 0.7;
 }

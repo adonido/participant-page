@@ -12,10 +12,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './participant-form.html'
 })
 export class ParticipantForm {
+onPhoneInput(event: Event) {
+  const input = event.target as HTMLInputElement;
 
+  const numbersOnly = input.value.replace(/[^0-9]/g, '');
+
+  input.value = numbersOnly;
+
+  this.participantForm.get('phoneNumber')?.setValue(numbersOnly);
+}
   participantForm: FormGroup;
 
-  // Logo upload properties
   logoFile: File | null = null;
   logoPreview: string | null = null;
 
@@ -43,7 +50,7 @@ export class ParticipantForm {
         Validators.email
       ]],
 
-      phone: ['', Validators.required],
+phoneNumber: ['', Validators.required],
 
       status: ['Active', Validators.required]
 
@@ -51,7 +58,6 @@ export class ParticipantForm {
 
   }
 
-  // Select and preview logo
   onLogoSelected(event: Event) {
 
     const input = event.target as HTMLInputElement;
@@ -75,65 +81,73 @@ export class ParticipantForm {
 
     this.logoFile = file;
 
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      this.logoPreview = reader.result as string;
-    };
-
-    reader.readAsDataURL(file);
+this.logoPreview = URL.createObjectURL(file);
   }
 
-  saveParticipant() {
+saveParticipant() {
 
-    console.log('SAVE BUTTON CLICKED');
+  console.log('SAVE BUTTON CLICKED');
 
-    if (this.participantForm.invalid) {
-      this.participantForm.markAllAsTouched();
-      return;
-    }
+  if (this.participantForm.invalid) {
+    this.participantForm.markAllAsTouched();
+    return;
+  }
 
-    const participant = this.participantForm.getRawValue() as Participant;
+  const participant = this.participantForm.getRawValue() as Participant;
 
-    this.participantService.addParticipant(participant).subscribe({
+  this.participantService.addParticipant(participant).subscribe({
 
-      next: (response) => {
+    next: (response) => {
 
-        console.log('Participant saved successfully:', response);
+      console.log('Participant saved successfully:', response);
 
-        // Upload logo after participant registration
-        if (this.logoFile && response.id) {
+      const participantId = response.institution.id;
 
-          this.participantService.uploadLogo(response.id, this.logoFile).subscribe({
+      // Upload logo after participant registration
+      if (this.logoFile && participantId) {
 
-            next: (logoResponse) => {
-              console.log('Logo uploaded successfully:', logoResponse);
-              this.router.navigate(['/participants']);
-            },
+        this.participantService.uploadLogo(
+          participantId,
+          this.logoFile
+        ).subscribe({
 
-            error: (error) => {
-              console.error('Logo upload failed:', error);
-              this.router.navigate(['/participants']);
-            }
+          next: (logoResponse) => {
 
-          });
+            console.log('Logo uploaded successfully:', logoResponse);
 
-        } else {
+            this.router.navigate(['/participants']);
 
-          this.router.navigate(['/participants']);
+          },
 
-        }
+          error: (error) => {
 
-      },
+            console.error('Logo upload failed:', error);
 
-      error: (error) => {
-        console.error('Error saving participant:', error);
+            alert('Participant registered, but logo upload failed.');
+
+            this.router.navigate(['/participants']);
+
+          }
+
+        });
+
+      } else {
+
+        this.router.navigate(['/participants']);
+
       }
 
-    });
+    },
 
-  }
+    error: (error) => {
 
+      console.error('Error saving participant:', error);
+
+    }
+
+  });
+
+}
   cancel() {
     this.router.navigate(['/participants']);
   }
