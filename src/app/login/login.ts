@@ -12,13 +12,10 @@ import { AuthService } from '../services/auth';
   templateUrl: './login.html',
 })
 export class Login {
-
   username = '';
   password = '';
-
   message = '';
   messageType = '';
-
   isLoading = false;
 
   constructor(
@@ -27,7 +24,6 @@ export class Login {
   ) {}
 
   onLogin() {
-
     if (!this.username || !this.password) {
       this.message = 'Please enter username and password';
       this.messageType = 'danger';
@@ -41,21 +37,17 @@ export class Login {
       username: this.username,
       password: this.password,
       grant_type: 'password',
-      client_id: 'acs_apis_client_api'
+   client_id: 'acs_apis_client_api'
     }).subscribe({
-
       next: () => {
         this.isLoading = false;
         this.router.navigate(['/participants']);
       },
-
       error: (error) => {
         this.isLoading = false;
-        this.message =
-          error.error?.message || 'Invalid username or password';
+        this.message = error.error?.message || 'Invalid username or password';
         this.messageType = 'danger';
       }
-
     });
   }
 }

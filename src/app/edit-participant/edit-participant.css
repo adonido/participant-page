@@ -1,7 +1,7 @@
 
 /* Page background and layout */
 .container {
-background: #000000;
+background: #8a5de4;
   max-width: 750px;
   margin: 50px auto;
   padding: 20px;
@@ -9,11 +9,11 @@ background: #000000;
 
 /* Main form card */
 .card {
-  background: #919191;
+  background: #383030;
   border: none;
   border-radius: 16px;
   padding: 35px !important;
-  box-shadow: 0 8px 30px rgba(240, 238, 238, 0.08) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Page heading */
@@ -52,7 +52,7 @@ h2 {
 .form-control:focus,
 .form-select:focus {
   border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(197, 199, 205, 0.12);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
   outline: none;
 }
 
