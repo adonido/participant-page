@@ -1,59 +1,236 @@
-# Eyosi
+# Participant Bank Management System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.6.
+A web-based Participant Bank Management System built with Angular 22 and Spring Boot. The application provides participant bank management, authentication, and logo upload capabilities.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **Authentication:** Login using the backend authentication API and Keycloak JWT access tokens.
+- **Protected Routes:** Angular authentication guard protects participant pages.
+- **Participant Management:** Register, view, edit, and delete participants.
+- **Logo Management:** Upload and display participant logos.
+- **HTTP Interceptor:** Automatically attaches authentication tokens to API requests and handles HTTP errors.
+- **Notifications:** Displays success and error notifications.
+- **Loading Indicators:** Provides loading feedback during API operations.
+- **Environment Configuration:** Centralized backend API URL configuration.
 
-```bash
-ng serve
+## Technology Stack
+
+### Frontend
+- Angular 22
+- TypeScript
+- HTML and CSS
+- RxJS
+- npm
+
+### Backend
+- Java / Spring Boot
+- Gradle
+- PostgreSQL
+- Keycloak authentication
+- Swagger / OpenAPI
+
+## Project Structure
+
+```text
+eyosi/
+├── public/
+├── src/
+│   └── app/
+│       ├── edit-participant/
+│       ├── environments/
+│       ├── guards/
+│       ├── interceptors/
+│       ├── login/
+│       ├── participant/
+│       ├── participant-form/
+│       ├── services/
+│       └── shared/
+├── angular.json
+├── package.json
+└── README.md
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Prerequisites
 
-## Code scaffolding
+Install the following before running the application:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js and npm
+- Angular CLI
+- Java Development Kit (JDK)
+- PostgreSQL
+- Git
 
-```bash
-ng generate component component-name
-```
+The backend project also includes the Gradle wrapper, so a separate Gradle installation is not required.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Frontend Setup
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### 1. Clone the repository
 
 ```bash
-ng build
+git clone <repository-url>
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Navigate to the frontend project:
 
 ```bash
-ng test
+cd eyosi
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### 2. Install dependencies
 
 ```bash
-ng e2e
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### 3. Configure the API URL
 
-## Additional Resources
+Open:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+`src/app/environments/environment.ts`
+
+Configure the backend API URL:
+
+```typescript
+export const environment = {
+  apiUrl: 'http://localhost:9081/api/v1'
+};
+```
+
+### 4. Run the frontend
+
+```bash
+npm start
+```
+
+Open the application:
+
+http://localhost:4200/
+
+## Backend Setup
+
+The backend project is maintained separately in the `participant-bank-backend` repository.
+
+### 1. Navigate to the backend project
+
+```bash
+cd participant-bank-backend
+```
+
+### 2. Configure PostgreSQL
+
+Ensure PostgreSQL is running and configure the database connection in the backend application properties.
+
+The development database configuration uses:
+
+```text
+Database: acs_participant_db
+Host: localhost
+Port: 5432
+```
+
+### 3. Run the backend
+
+On Windows PowerShell:
+
+```powershell
+.\gradlew.bat build
+```
+
+Start the backend using the development profile:
+
+```powershell
+.\gradlew.bat bootRun --args='--spring.profiles.active=dev'
+```
+
+The backend runs on:
+
+http://localhost:9081
+
+### 4. API Documentation
+
+Swagger UI:
+
+http://localhost:9081/swagger-ui.html
+
+OpenAPI specification:
+
+http://localhost:9081/v3/api-docs
+
+## Authentication
+
+The frontend communicates with the backend authentication endpoint:
+
+```text
+POST /api/v1/auth/login
+```
+
+After successful authentication, the frontend stores the access token in browser session storage.
+
+The HTTP interceptor attaches the Bearer access token to protected API requests.
+
+The application automatically logs out and redirects to the login page when a protected request receives a 401 Unauthorized response.
+
+Authentication requires the backend and its configured Keycloak server to be available.
+
+## Building the Frontend
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+The generated files are stored in:
+
+```text
+dist/
+```
+
+## Running Tests
+
+Run the frontend unit tests:
+
+```bash
+npm test
+```
+
+## Additional Development Commands
+
+Start the development server:
+
+```bash
+npm start
+```
+
+Build while watching for changes:
+
+```bash
+npm run watch
+```
+
+Run the Angular CLI:
+
+```bash
+npx ng
+```
+
+## Git Branches
+
+The final frontend development branch for Task 12 is:
+
+```text
+task/12-environments-tests
+```
+
+The backend branch used for authenticated participant management is:
+
+```text
+branch3-auth-with-logo
+```
+
+## Important Notes
+
+- Start PostgreSQL before starting the backend.
+- Start the backend before using frontend API features.
+- Ensure the configured Keycloak server is reachable for authentication.
+- Do not commit passwords, access tokens, or other private credentials to Git.

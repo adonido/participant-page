@@ -71,7 +71,7 @@
 <td>
   @if (participant.logoPath) {
    <img
-  [src]="'http://localhost:9081' + participant.logoPath"
+  [src]="apiUrl + participant.logoPath"
   alt="Participant Logo"
   class="participant-logo">
   } @else {

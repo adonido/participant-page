@@ -1,6 +1,7 @@
 
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { NotificationService } from '../shared/notification';
@@ -9,11 +10,16 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
 
   const notificationService = inject(NotificationService);
   const router = inject(Router);
+const platformId = inject(PLATFORM_ID);
+const isBrowser = isPlatformBrowser(platformId);
+  // Get access token from localStorage
+ const accessToken = isBrowser
+  ? localStorage.getItem('access_token')
+  : null;
 
-  // Get access token from sessionStorage
-  const accessToken = sessionStorage.getItem('access_token');
-  const tokenType = sessionStorage.getItem('token_type') || 'Bearer';
-
+const tokenType = isBrowser
+  ? localStorage.getItem('token_type') || 'Bearer'
+  : 'Bearer';
   // Attach token to API requests, except login
   const authReq = accessToken && !req.url.includes('/auth/login')
     ? req.clone({

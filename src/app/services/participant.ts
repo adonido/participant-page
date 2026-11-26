@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 export interface Participant {
   id?: number;
   name: string;
@@ -23,7 +24,7 @@ export interface ParticipantResponse {
 })
 export class ParticipantService {
 
-  private apiUrl = 'http://localhost:9081/api/v1/participants';
+  private apiUrl = `${environment.apiUrl}/participants`;
 
   constructor(private http: HttpClient) {}
 

@@ -16,19 +16,19 @@ export const routes: Routes = [
   {
     path: 'participants',
     component: Participants,
- canActivate: [authGuard]
+    // canActivate: [authGuard]
   },
 
   {
     path: 'participants/new',
     component: ParticipantForm,
-        canActivate: [authGuard]
+    // canActivate: [authGuard]
   },
-{
-  path: 'participants/edit/:id',
-  component: EditParticipant,
-      canActivate: [authGuard]
-},
+  {
+    path: 'participants/edit/:id',
+    component: EditParticipant,
+    // canActivate: [authGuard]
+  },
   {
     path: '',
     redirectTo: 'login',

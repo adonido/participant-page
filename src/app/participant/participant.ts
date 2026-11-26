@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { ParticipantService, Participant } from '../services/participant';
 import { LoadingSpinner } from '../shared/loading-spinner/loading-spinner';
 import { NotificationService } from '../shared/notification';
+import { environment } from '../environments/environment';
 @Component({
   selector: 'app-participants',
   standalone: true,
@@ -12,6 +13,7 @@ imports: [RouterLink, LoadingSpinner],
   templateUrl: './participant.html'
 })
 export class Participants implements OnInit {
+  apiUrl = environment.apiUrl.replace('/api/v1', '');
 
   participants: Participant[] = [];
 isLoading = signal<boolean>(true);
